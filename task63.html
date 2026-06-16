@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting Demo</title>
+</head>
+<body>
+
+<h2>Employee Sorting</h2>
+
+<select id="sortBy">
+    <option value="name">Name</option>
+    <option value="salary">Salary</option>
+</select>
+
+<select id="order">
+    <option value="asc">Ascending</option>
+    <option value="desc">Descending</option>
+</select>
+
+<button onclick="loadEmployees()">
+Sort Data
+</button>
+
+<pre id="result"></pre>
+
+<script>
+
+async function loadEmployees() {
+
+    const sortBy =
+        document.getElementById("sortBy").value;
+
+    const order =
+        document.getElementById("order").value;
+
+    const response =
+        await fetch(
+            `http://localhost:3000/employees?sortBy=${sortBy}&order=${order}`
+        );
+
+    const data =
+        await response.json();
+
+    document.getElementById("result")
+        .innerText =
+        JSON.stringify(data, null, 2);
+}
+
+loadEmployees();
+
+</script>
+
+</body>
+</html>
